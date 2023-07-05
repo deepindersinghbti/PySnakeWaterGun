@@ -1,5 +1,4 @@
 import random
-import sys
 
 choices = {
     'S': 'Snake',
@@ -9,11 +8,10 @@ choices = {
 
 def get_input():
     user_choice = input("Enter your choice (S/W/G): ").upper()
-    if user_choice in choices:
-        return user_choice
-    else:
-        print("Invalid input.")
-        sys.exit(0)
+    while user_choice not in choices:
+        print("Invalid input.\n")
+        user_choice = input("Enter your choice (S/W/G): ").upper()
+    return user_choice
 
 def get_computer_choice():
     return random.choice(list(choices.keys()))
@@ -34,9 +32,10 @@ def get_result(user_choice, comp_choice):
         return "Computer"
 
 def play_game():
-    global player_score, comp_score
+    global player_score, comp_score, draws
     player_score = 0
     comp_score = 0
+    draws = 0
 
     while True:
         user_choice = get_input()
@@ -48,17 +47,20 @@ def play_game():
             print("Winner is", get_result(user_choice, comp_choice), ".\n")
         else:
             print("It's a", get_result(user_choice, comp_choice), ".\n")
+            draws += 1
 
-        replay_choice = int(input("Enter 0 to replay or 1 to exit: "))
-        if replay_choice == 0:
-            continue
-        elif replay_choice == 1:
-            print("Your final score is", player_score)
-            print("Computer's final score is", comp_score)
-            print("Thanks for playing.")
-            sys.exit(1)
-        else:
-            print("Invalid input.")
-            continue
+        while True:
+            replay_choice = input("Enter 0 to replay or 1 to exit: ")
+            print("\n")
+            if replay_choice == '0':
+                break
+            elif replay_choice == '1':
+                print("Your final score is", player_score)
+                print("Computer's final score is", comp_score)
+                print("Number of draws:", draws)
+                print("Thanks for playing.")
+                return
+            else:
+                print("Invalid input.\n")
 
 play_game()
