@@ -50,11 +50,11 @@ def play_game():
             draws += 1
 
         while True:
-            replay_choice = input("Enter 0 to replay or 1 to exit: ")
+            replay_choice = int(input("Enter 0 to replay or 1 to exit: "))
             print("\n")
-            if replay_choice == '0':
+            if replay_choice == 0:
                 break
-            elif replay_choice == '1':
+            elif replay_choice == 1:
                 print("Your final score is", player_score)
                 print("Computer's final score is", comp_score)
                 print("Number of draws:", draws)
